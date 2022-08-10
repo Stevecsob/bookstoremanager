@@ -1,6 +1,7 @@
 package com.scs.bookstoremanager.service;
 
 
+import com.scs.bookstoremanager.dto.BookDTO;
 import com.scs.bookstoremanager.dto.MessageResponseDTO;
 import com.scs.bookstoremanager.entity.Book;
 import com.scs.bookstoremanager.repository.BookRepository;
@@ -13,14 +14,15 @@ public class BookService {
 
     private final BookRepository bookRepository;
 
-
     @Autowired
     public BookService(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 
-    public MessageResponseDTO create( Book book) {
-        Book savedBook = bookRepository.save(book);
+    public MessageResponseDTO create(BookDTO bookDTO) {
+        Book bookToSave = Book.builder().build();
+
+        Book savedBook = bookRepository.save(bookToSave);
         return MessageResponseDTO.builder().message("Book created with ID: " + savedBook.getId()).build();
 
     }
