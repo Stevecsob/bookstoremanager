@@ -22,19 +22,9 @@ public class Author {
 
     @Column(nullable = false, unique = true)
     private  String name;
+
     @Column(nullable = false)
     private Integer age;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Author author = (Author) o;
-        return id != null && Objects.equals(id, author.id);
-    }
 
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 }
