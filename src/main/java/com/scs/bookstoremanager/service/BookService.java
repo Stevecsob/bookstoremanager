@@ -4,6 +4,8 @@ package com.scs.bookstoremanager.service;
 import com.scs.bookstoremanager.dto.BookDTO;
 import com.scs.bookstoremanager.dto.MessageResponseDTO;
 import com.scs.bookstoremanager.entity.Book;
+import com.scs.bookstoremanager.exception.BookNotFoundException;
+
 import com.scs.bookstoremanager.mapper.BookMapper;
 import com.scs.bookstoremanager.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +34,10 @@ public class BookService {
 
     }
 
-    public BookDTO findById(Long id) {
-        Optional<Book> optionalBook = bookRepository.findById(id);
-        return bookMapper.toDTO(optionalBook.get());
+    public BookDTO findById(Long id)
+            throws BookNotFoundException {
+        Book book = bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id));
+
+        return bookMapper.toDTO(book);
     }
 }
